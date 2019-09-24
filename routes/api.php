@@ -40,6 +40,7 @@ Route::delete('/matriculas/delete_cupos_periodo_academico', 'MatriculasControlle
 Route::get('/matriculas/certificado_matricula', 'MatriculasController@getCertificadoMatricula');
 Route::get('/matriculas/solicitud_matricula', 'MatriculasController@getSolicitudMatricula');
 Route::get('/matriculas/carreras', 'MatriculasController@getMatriculasCarreras');
+Route::get('/matriculas/count', 'MatriculasController@getCountMatriculas');
 Route::get('/matriculas/periodo_academicos', 'MatriculasController@getMatriculasPeriodoAcademicos');
 Route::get('/matriculas/cupos', 'MatriculasController@getCupos');
 Route::get('/matriculas/aprobados', 'MatriculasController@getAprobados');
@@ -108,6 +109,7 @@ Route::get('/matriculas','MatriculasController@get');
 Route::post('/matriculas','MatriculasController@post');
 Route::delete('/matriculas','MatriculasController@delete');
 Route::put('/matriculas','MatriculasController@put');
+Route::get('/matriculas/filter','MatriculasController@filter');
 
 Route::get('/tipo_descuentos','TipoDescuentosController@get');
 Route::post('/tipo_descuentos','TipoDescuentosController@post');
@@ -120,18 +122,23 @@ Route::get('/asignaciones/facilitadores','AsignacionesController@getFacilitadore
 Route::post('/asignaciones/facilitadores','AsignacionesController@asignarFacilitador');
 Route::delete('/asignaciones/facilitadores','AsignacionesController@deleteFacilitador');
 Route::post('/asignaciones','AsignacionesController@post');
-Route::delete('/asignaciones','AsignacionesController@delete');
+Route::post('/eliminarFacilitador','AsignacionesController@deleteFacilitador');
 Route::put('/asignaciones','AsignacionesController@put');
 
 Route::get('/participantes/get_one','ParticipantesController@getParticipante');
 Route::get('/matriculas/get_one','MatriculasController@getMatricula');
 Route::get('/matriculas/participantes','MatriculasController@getMatriculasParticipantes');
+Route::get('/matriculas/participantes/matriculados','MatriculasController@getMatriculasParticipantesMatriculados');
 
 Route::post('/users', 'UsersController@post');
 Route::get('/users','UsersController@get');
 Route::put('/users','UsersController@put');
+Route::delete('/users','UsersController@delete');
 Route::get('/users/filter','UsersController@filter');
 
 Route::get('/asignaciones/{id}','AsignacionesController@getOne');
 Route::post('/login','UsersController@login');
 Route::get('/roles','RolesController@get');
+Route::get('/matriculas/pago','MatriculasController@pagoMatricula');
+Route::get('/matriculas/devolver','MatriculasController@devolverMatricula');
+Route::get('/matriculas/activada','MatriculasController@Matriculacion');

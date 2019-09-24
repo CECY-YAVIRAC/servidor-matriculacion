@@ -21,8 +21,7 @@ class CreateCursosTable extends Migration
             $table->string('codigo', 50)->nullable();
             $table->string('nombre', 200)->nullable();
             $table->string('tipo', 20)->default(0);
-            $table->string('modalidad', 20)->default(0);                   
-            $table->integer('duracion')->nullable();
+            $table->string('modalidad', 20)->default(0);        
             $table->string('lugar', 30)->default(0);
             $table->string('lugar_otros', 100)->nullable();              
             $table->string('estado', 20)->default('ACTIVO');

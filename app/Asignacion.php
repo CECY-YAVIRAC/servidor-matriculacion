@@ -10,13 +10,14 @@ class Asignacion extends Model implements Auditable
     protected $table="asignaciones";
     use \OwenIt\Auditing\Auditable;
     protected $fillable = [
-
+      
         'hora_inicio',
         'hora_fin',
         'fecha_inicio',
         'fecha_fin',
         'horas_duracion',
         'valor_curso',
+        'cupo_maximo',
         'observacion',        
         'estado',       
     ];

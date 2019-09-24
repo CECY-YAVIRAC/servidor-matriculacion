@@ -29,6 +29,7 @@ class CreateMatriculasTable extends Migration
             $table->string('paralelo', 20)->nullable();                   
             $table->string('numero_matricula', 20)->nullable();
             $table->string('estado_academico', 20)->nullable(); 
+            $table->double('valor_descuento',10, 2)->nullable(); 
             $table->double('valor_total')->nullable(); 
             $table->double('nota')->nullable();     
             $table->string('carrera', 20)->nullable();

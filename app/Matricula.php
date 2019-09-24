@@ -17,6 +17,7 @@ class Matricula extends Model implements Auditable
        'numero_matricula',
        'estado_academico',
        'valor_total',
+       'valor_descuento',
        'nota',       
        'carrera',
        'nivel',

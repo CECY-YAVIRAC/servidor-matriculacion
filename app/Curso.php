@@ -11,11 +11,10 @@ class Curso extends Model implements Auditable
     use \OwenIt\Auditing\Auditable;
     protected $fillable = [
         
-        'codigo',
+        'codigo',       
         'nombre',
         'tipo',
-        'modalidad',            
-        'duracion',
+        'modalidad',         
         'lugar',
         'lugar_otros', 
         'estado',        

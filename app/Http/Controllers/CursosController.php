@@ -15,24 +15,26 @@ class CursosController extends Controller
     }
     public function filter(Request $request){
       $response=Curso::with('instituto')->
-        orWhere('codigo','like','%'.$request->codigo.'%')    
-      ->orWhere('nombre','like','%'.$request->nombre.'%')
+        Where('codigo','like','%'.$request->codigo.'%')
       ->get();
       return response()->json(['cursos'=>$response],200);
     }
      public function put(Request $request ){
         $datosClienteBody = $request->json()->all();
         $datosCurso=$datosClienteBody['curso'];
+        $instituto=Instituto::findOrFail($datosCurso['instituto_id']); 
         $curso=Curso::findOrFail($datosCurso['id']);
-        $response=$curso->update([        
+        if($curso->instituto_id != $datosCurso['instituto_id']){
+          $curso->instituto()->associate($instituto);
+        }       
+        $response=$curso->update([          
         'codigo'=>$datosCurso['codigo'],
         'nombre'=>$datosCurso['nombre'],
         'tipo'=>$datosCurso['tipo'],
-        'modalidad'=>$datosCurso['modalidad'],           
-        'duracion'=>$datosCurso['duracion'],
+        'modalidad'=>$datosCurso['modalidad'], 
         'lugar'=>$datosCurso['lugar'],
         'lugar_otros'=>$datosCurso['lugar_otros'],                     
-          ]);
+          ]);        
         return response()->json(['curso'=>$response],201);        
     }
     public function delete(Request $request){
@@ -45,13 +47,12 @@ class CursosController extends Controller
         $datosClienteBody = $request->json()->all();
         $datosCurso=$datosClienteBody['curso'];
         $datosInstituto=$datosClienteBody['instituto'];
-        $instituto=Instituto::findOrFail($datosInstituto['id']);  
+        $instituto=Instituto::findOrFail($datosCurso['instituto_id']);  
         $response=$instituto->cursos()->create([       
         'codigo'=>$datosCurso['codigo'],
         'nombre'=>$datosCurso['nombre'],
         'tipo'=>$datosCurso['tipo'],
-        'modalidad'=>$datosCurso['modalidad'],            
-        'duracion'=>$datosCurso['duracion'],
+        'modalidad'=>$datosCurso['modalidad'],
         'lugar'=>$datosCurso['lugar'],
         'lugar_otros'=>$datosCurso['lugar_otros'],        
           ]);

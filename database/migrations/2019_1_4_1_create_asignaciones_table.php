@@ -24,6 +24,7 @@ class CreateAsignacionesTable extends Migration
             $table->date('fecha_fin')->nullable();
             $table->integer('horas_duracion')->nullable();
             $table->double('valor_curso')->nullable();
+            $table->integer('cupo_maximo')->nullable();
             $table->string('observacion', 200)->nullable();           
             $table->string('estado', 20)->default('ACTIVO');
 

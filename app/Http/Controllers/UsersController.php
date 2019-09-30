@@ -31,10 +31,24 @@ class UsersController extends Controller
     }
 
     public function get(){
-      $response=User::with('role')->where('role_id','!=','2')->get();
+      $response=User::with('role')
+      ->where('role_id','!=','2')
+      ->get();
       return response()->json(['users'=>$response],200);
     }
 
+    public function getUser(){
+      $response=User::with('role')
+      ->where('role_id','!=','1')
+      ->where('role_id','!=','3')
+      ->where('role_id','!=','4')
+      ->where('role_id','!=','5')     
+      ->get();
+      return response()->json(['users'=>$response],200);
+    }
+
+
+  
     public function resetPassword(Request $request)
     {
         $data = $request->json()->all();
@@ -114,6 +128,17 @@ class UsersController extends Controller
         ->get();
         return response()->json(['users'=>$response],200);
       }   
+
+      public function filterParticipante(Request $request){
+        $response=User::
+          Where('user_name','like','%'.$request->user_name.'%') 
+         ->where('role_id','!=','1')
+         ->where('role_id','!=','3')
+         ->where('role_id','!=','4')
+         ->where('role_id','!=','5')              
+        ->get();
+        return response()->json(['users'=>$response],200);
+      }  
       
       public function delete(Request $request){       
         $user=User::findOrFail($request->user_id);

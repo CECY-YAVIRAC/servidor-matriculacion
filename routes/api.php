@@ -66,7 +66,7 @@ Route::post('/imports/matriculas', 'ExcelController@importMatriculas');
 Route::get('/certificado-matricula/{matricula_id}', 'MatriculasController@getCertificadoMatriculaPublic');
 Route::get('/exports/errores_cupos', 'ExcelController@exportErroresCupos'); */
 /* Route::get('/email', 'PruebasController@email');
-Route::post('/emails', 'EmailsController@send'); */
+Route::post('/emails', 'EmailsController@send');
 /* Route::get('/paralelos', 'ExcelController@changeParalelo');
 Route::get('/estudiantes/en_proceso', 'EstudiantesController@getEnProceso');
 Route::get('/estudiantes/{id}', 'EstudiantesController@getOne');
@@ -135,6 +135,9 @@ Route::get('/users','UsersController@get');
 Route::put('/users','UsersController@put');
 Route::delete('/users','UsersController@delete');
 Route::get('/users/filter','UsersController@filter');
+Route::get('/users/participantes','UsersController@getUser');
+Route::get('/users/filter/participantes','UsersController@filterParticipante');
+
 
 Route::get('/asignaciones/{id}','AsignacionesController@getOne');
 Route::post('/login','UsersController@login');

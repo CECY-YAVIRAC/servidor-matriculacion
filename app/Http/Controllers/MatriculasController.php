@@ -48,9 +48,15 @@ class MatriculasController extends Controller
       'cursos.nombre',
       'cursos.modalidad',      
       'asignaciones.hora_inicio',
-      'asignaciones.hora_fin')
+      'asignaciones.hora_fin',
+      'participantes.identificacion as participante_identificacion',
+      'participantes.nombre1 as participante_nombre1',
+      'participantes.nombre2 as participante_nombre2',
+      'participantes.apellido1 as participante_apellido1',
+      'participantes.apellido2 as participante_apellido2',)
       ->join('asignaciones','asignaciones.id','matriculas.asignacion_id')
-      ->join('cursos','cursos.id','asignaciones.curso_id')      
+      ->join('cursos','cursos.id','asignaciones.curso_id') 
+      ->join('participantes','participantes.id','matriculas.participante_id')     
       ->where('participante_id',$participante->id) 
       ->where('asignacion_id',$request->asignacion_id)->first();               
       return response()->json(['matricula'=>$response],200);  
@@ -82,7 +88,8 @@ class MatriculasController extends Controller
       'participantes.apellido2 as participante_apellido2', )       
       ->join('participantes','participantes.id','matriculas.participante_id')
       ->join('asignaciones','asignaciones.id','matriculas.asignacion_id')
-      ->join('cursos','cursos.id','asignaciones.curso_id')->where('asignacion_id',$request->asignacion_id)
+      ->join('cursos','cursos.id','asignaciones.curso_id')
+      ->where('asignacion_id',$request->asignacion_id)
       ->get();        
       return response()->json(['matriculas'=>$response],200);     
     }
@@ -179,7 +186,6 @@ class MatriculasController extends Controller
           $datosClienteBody = $request->all();            
           $matricula=Matricula::findOrFail($request->id);          
           $response = $matricula->update([ 
-            //'tipo_descuento_id'=>$request->tipo_descuento, 
             'valor_total'=>$request->valor_total,
             'valor_descuento'=>$request->valor_descuento,           
             'estado'=>'PAGADO'
@@ -191,7 +197,6 @@ class MatriculasController extends Controller
             $datosClienteBody = $request->all();            
             $matricula=Matricula::findOrFail($request->id);          
             $response = $matricula->update([ 
-              //'tipo_descuento_id'=> '', 
               'valor_descuento'=> 0,       
               'valor_total'=> 0,   
               'estado'=>'INSCRITO',             

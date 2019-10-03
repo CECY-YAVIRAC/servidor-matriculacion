@@ -41,8 +41,7 @@ class MatriculasController extends Controller
 
 
     /*get del formulario de la matricula*/  
-     public function getMatricula(Request $request){
-      $participante = Participante::where('user_id',$request->user_id)->first();
+     public function getMatricula(Request $request){      
       $response=Matricula::select('matriculas.*',
       'cursos.codigo',
       'cursos.nombre',
@@ -56,9 +55,21 @@ class MatriculasController extends Controller
       'participantes.apellido2 as participante_apellido2',)
       ->join('asignaciones','asignaciones.id','matriculas.asignacion_id')
       ->join('cursos','cursos.id','asignaciones.curso_id') 
-      ->join('participantes','participantes.id','matriculas.participante_id')     
-      ->where('participante_id',$participante->id) 
-      ->where('asignacion_id',$request->asignacion_id)->first();               
+      ->join('participantes','participantes.id','matriculas.participante_id');
+      if($request->user_id){
+        $participante = Participante::where('user_id',$request->user_id)->first();
+        if($participante){
+          $response = $response->where('participante_id',$participante->id);
+        }
+      }
+          
+      if($request->id_matricula){
+        $response = $response->where('matriculas.id', $request->id_matricula);
+      }
+      if($request->asignacion_id){
+        $response = $response->where('asignacion_id',$request->asignacion_id);
+      }     
+      $response = $response->first();               
       return response()->json(['matricula'=>$response],200);  
     } 
     

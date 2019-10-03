@@ -145,3 +145,4 @@ Route::get('/roles','RolesController@get');
 Route::get('/matriculas/pago','MatriculasController@pagoMatricula');
 Route::get('/matriculas/devolver','MatriculasController@devolverMatricula');
 Route::get('/matriculas/activada','MatriculasController@Matriculacion');
+Route::delete('/users/participantes','UsersController@deleteParticipante');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Role;
+use App\Participante;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -140,10 +141,26 @@ class UsersController extends Controller
         return response()->json(['users'=>$response],200);
       }  
       
-      public function delete(Request $request){       
+      
+      public function delete(Request $request){           
         $user=User::findOrFail($request->user_id);
         $response=$user->delete();
         return response()->json($response,201);
       }
-    
+
+
+      public function deleteParticipante(Request $request){ 
+        $participante=Participante::where('user_id',$request->user_id)->delete();
+        if($participante){
+          $user=User::findOrFail($request->user_id);
+          $user = $user->delete();
+          if($user){
+            return 'true';
+          }else{
+            return 'Solo se Elimino el Participante';
+          }
+        }else{
+          return 'no se elimina el participante';
+        }    
+      }    
 }

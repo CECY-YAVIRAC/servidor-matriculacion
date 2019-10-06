@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Role;
 use App\Participante;
+use App\Facilitador;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -88,11 +89,13 @@ class UsersController extends Controller
         if($request->role_id==2){
             $user->participante()->create([
               'identificacion'=> $datosUser['user_name'],
-              'nombre1'=> $datosUser['name'],              
+              'nombre1'=> $datosUser['name'],
           ]);
         }
         if($datosUser['role_id']==4){
-          $user->facilitador()->create([
+          $user->facilitador()->create([  
+            'nombre1'=> $datosUser['name'],
+            'apellido1'=> $datosUser['name'],                 
             'cedula'=> $datosUser['user_name'],
             'correo_electronico'=> $datosUser['email'],
             
@@ -154,13 +157,14 @@ class UsersController extends Controller
         if($participante){
           $user=User::findOrFail($request->user_id);
           $user = $user->delete();
-          if($user){
-            return 'true';
-          }else{
-            return 'Solo se Elimino el Participante';
-          }
-        }else{
-          return 'no se elimina el participante';
-        }    
+        }          
+      }    
+
+      public function deleteFacilitador(Request $request){ 
+        $facilitador=Facilitador::where('user_id',$request->user_id)->delete();
+        if($facilitador){
+          $user=User::findOrFail($request->user_id);
+          $user = $user->delete();          
+        } 
       }    
 }

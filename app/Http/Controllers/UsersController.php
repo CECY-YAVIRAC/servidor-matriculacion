@@ -49,19 +49,6 @@ class UsersController extends Controller
       return response()->json(['users'=>$response],200);
     }
 
-
-  
-    public function resetPassword(Request $request)
-    {
-        $data = $request->json()->all();
-        $dataUser = $data['user'];
-        $user = User::findOrFail($dataUser['id']);
-        $user->update([
-            'password' => Hash::make($dataUser['password']),
-        ]);
-        return $user;
-    }
-
     public function login(Request $request){      
       $user = User::where('email',$request->email)->first();        
        if($user){
@@ -94,8 +81,7 @@ class UsersController extends Controller
         }
         if($datosUser['role_id']==4){
           $user->facilitador()->create([  
-            'nombre1'=> $datosUser['name'],
-            'apellido1'=> $datosUser['name'],                 
+            'nombre1'=> $datosUser['name'],                             
             'cedula'=> $datosUser['user_name'],
             'correo_electronico'=> $datosUser['email'],
             
